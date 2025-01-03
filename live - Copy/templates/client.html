@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stream Viewer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #34495e;
+            padding: 2em;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        h1 {
+            color: #3498db;
+            margin-bottom: 1em;
+        }
+        .input-group {
+            display: flex;
+            margin-bottom: 1em;
+        }
+        input {
+            flex-grow: 1;
+            padding: 0.7em;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-size: 1em;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 0.7em 1.5em;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #keyDisplay {
+            margin-top: 1em;
+            font-size: 1.1em;
+            color: #bdc3c7;
+        }
+        #liveStream {
+            display: none;
+            max-width: 100%;
+            border-radius: 5px;
+            margin-top: 1em;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-video"></i> Stream Viewer</h1>
+        <div class="input-group">
+            <input type="text" id="streamKey" placeholder="Enter your stream key">
+            <button id="viewStream"><i class="fas fa-eye"></i> View</button>
+        </div>
+        <p id="keyDisplay"></p>
+        <img id="liveStream" alt="Live Stream">
+    </div>
+
+    <script>
+        document.getElementById('viewStream').addEventListener('click', function() {
+            const key = document.getElementById('streamKey').value.trim();
+            if (key) {
+                document.getElementById('keyDisplay').innerHTML = '<i class="fas fa-key"></i> Access Key: ' + key;
+                document.getElementById('liveStream').src = `http://${location.hostname}:5001/video_feed/${key}`;
+                document.getElementById('liveStream').style.display = 'block';
+            } else {
+                alert('Please enter a valid stream key.');
+            }
+        });
+    </script>
+</body>
+</html>
